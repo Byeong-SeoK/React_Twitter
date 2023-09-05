@@ -2,8 +2,6 @@
   "compilerOptions": {
     "baseUrl": "src"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "_comment": "//이 jsconfig.json을 덕분에 상대경로의 ..을 지울 수 있다. 즉, src 폴더 내에 있는 파일들을 tracking하기 때문에../~~/~~ 형태의 상대 경로를 ~~/~~ 로 작성할 수 있다."
 }
-//이 jsconfig.json을 덕분에 상대경로의 ..을 지울 수 있다.
-//즉, src 폴더 내에 있는 파일들을 tracking하기 때문에
-//../~~/~~ 형태의 상대 경로를 ~~/~~ 로 작성할 수 있다.

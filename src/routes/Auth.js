@@ -45,7 +45,7 @@ const Auth = () => {
         data = await signInWithEmailAndPassword(auth, email, password);
         //firebase의 내장함수를 통해서 로그인을 하도록 해준다.
       }
-      console.log(data);
+      //console.log(data);
     } catch (error) {
       setError(error.message);
     }

@@ -17,10 +17,15 @@ function App() {
   //항상 새로운 계정을 만들도록 유도 된다. 또 새로운 계정을 만들고 난 이후에도
   //로그인을 할 수 없다는 단점이 있다. 그래서 별도의 useState를 만들어서 해결한다.
 
+  const [userObj, setUserObj] = useState(null);
+  //이 useState는 트윗을 남기는 사용자의 정보를 받는 것으로
+  //이 userObj를 통해서 이후 Home.js에서 firebase에 사용자 정보를 넘긴다.
+
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
         setIsLoggedIn(true);
+        setUserObj(user);
       } else {
         setIsLoggedIn(false);
       }
@@ -36,7 +41,11 @@ function App() {
 
   return (
     <>
-      {init ? <AppRouter isLoggedIn={isLoggedIn} /> : "Initializaing..."}
+      {init ? (
+        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+      ) : (
+        "Initializaing..."
+      )}
       <footer>&copy; React_Twitter {new Date().getFullYear()}</footer>
     </>
   );

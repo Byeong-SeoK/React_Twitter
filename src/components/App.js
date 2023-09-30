@@ -7,7 +7,7 @@ function App() {
   //이 init은 사용자 정보가 초기화 됐는지 받는 state이다.
   //즉, firebase로 부터 데이터를 받아왔을 때 이 init이 true가 된다.
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
   //authService.currentUser를 통해서 현재 접근하는 User가
   //권한이 있는 User면 User객체를 반환하고 권한이 없으면 null을 반환한다.
   //그렇기 때문에 isLoggedIn의 초기값으로 줄 수 있다.
@@ -24,10 +24,7 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        setIsLoggedIn(true);
         setUserObj(user);
-      } else {
-        setIsLoggedIn(false);
       }
       setInit(true);
     });
@@ -42,7 +39,9 @@ function App() {
   return (
     <>
       {init ? (
-        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+        //isLoggedin이라는 별도의 useState를 사용하기보다는
+        //userObj라는 객체가 존재하면 참이고 없으면 거짓인 것으로 사용하는 것이 더 보기 좋다.
+        <AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj} />
       ) : (
         "Initializaing..."
       )}

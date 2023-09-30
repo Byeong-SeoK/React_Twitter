@@ -14,6 +14,11 @@ import Tweet from "components/Tweet";
 const Home = ({ userObj }) => {
   const [tweet, setTweet] = useState("");
   const [tweets, setTweets] = useState([]);
+  const [attachment, setAttachment] = useState();
+  //이 state는 받아온 이미지 URL을 담는 state이다.
+  //state의 default값을 부여하지 않으면 undefined가 default값이 된다.
+
+  //console.log(attachment);
 
   //console.log(userObj);
 
@@ -101,6 +106,12 @@ const Home = ({ userObj }) => {
       //파일을 완전히 다 읽어와야 실행되는 함수로
       //그때 읽어온 결과를 finishedEvent에 담게 된다.
       console.log(finishedEvent);
+
+      const {
+        target: { result },
+      } = finishedEvent;
+
+      setAttachment(result);
     };
 
     reader.readAsDataURL(theFile);
@@ -121,6 +132,9 @@ const Home = ({ userObj }) => {
     //이 ArrayBuffer는 일반적인 크기의 바이너리 데이터 버퍼를 의미한다.
   };
 
+  const onClearAttachmentClick = () => setAttachment(null);
+  //이 함수는 미리보기 되어있던 사진을 null로 바꾼다.
+
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -133,6 +147,12 @@ const Home = ({ userObj }) => {
         />
         <input type="file" accept="image/*" onChange={onFileChange} />
         <input type="submit" value="React tweet" />
+        {attachment && (
+          <div>
+            <img alt="thumnails" src={attachment} width="50px" height="50px" />
+            <button onClick={onClearAttachmentClick}>Clear</button>
+          </div>
+        )}
       </form>
       <div>
         {tweets.map((tweet) => (
